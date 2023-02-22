@@ -1,5 +1,4 @@
-import { Controller, HttpException, HttpStatus } from '@nestjs/common';
-import { Get } from '@nestjs/common/decorators';
+import { Controller, HttpException, HttpStatus, Get } from '@nestjs/common';
 import { CurrencyService } from './currency.service';
 
 @Controller('currency')
