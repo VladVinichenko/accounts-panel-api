@@ -1,7 +1,8 @@
-import { Controller, HttpException, HttpStatus, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, HttpException, HttpStatus, Get, Param, Post, Body, Put } from '@nestjs/common';
 import { Delete } from '@nestjs/common/decorators';
 import { AccountService } from './account.service';
 import { CreateAccountDTO } from './dto/create-account.dto';
+import { CreatePatmentAccountDTO } from './dto/createPayment-account.dto';
 import { Account } from './schemas/account.schema';
 
 @Controller('account')
@@ -42,6 +43,11 @@ export class AccountController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) : Promise<Account> {
-    return this.accountService.remove(id)
+    return await this.accountService.remove(id)
+  }
+
+  @Put(':id')
+  async createPayment(@Body() createPatmentDTO: CreatePatmentAccountDTO, @Param('id') id: string) : Promise<Account> {
+    return this.accountService.createPayment(id, createPatmentDTO)
   }
 }
