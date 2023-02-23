@@ -6,6 +6,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule,   {cors: {
     origin: process.env.APP_URL,
   }},);
-  await app.listen(PORT, () => console.log(`Server started on port = ${PORT}`));
+  await app.listen(PORT,"0.0.0.0");
 }
 bootstrap();
