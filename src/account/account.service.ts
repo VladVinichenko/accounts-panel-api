@@ -13,8 +13,11 @@ export class AccountService {
   constructor(@InjectModel(Account.name) private accountModel: Model<AccountDocument>) { }
 
 
-  async getAll(): Promise<Account[]> {
-    return await this.accountModel.find().exec()
+  async getAll(filter: string): Promise<Account[]> {
+    if (!filter) return await this.accountModel.find().exec()
+    console.log(filter);
+    
+    if (filter) return await this.accountModel.find({company: filter})
   }
 
 

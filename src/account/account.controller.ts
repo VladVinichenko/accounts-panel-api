@@ -1,5 +1,5 @@
 import { Controller, HttpException, HttpStatus, Get, Param, Post, Body, Put } from '@nestjs/common';
-import { Delete } from '@nestjs/common/decorators';
+import { Delete, Query } from '@nestjs/common/decorators';
 import { AccountService } from './account.service';
 import { CreateAccountDTO } from './dto/create-account.dto';
 import { CreatePatmentAccountDTO } from './dto/createPayment-account.dto';
@@ -10,10 +10,10 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) { }
 
   @Get()
-  async getAll(): Promise<Account[]> {
+  async getAll(@Query('filter') filter?: string): Promise<Account[]> {
 
     try {
-      return await this.accountService.getAll()
+      return await this.accountService.getAll(filter)
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND)
     }
@@ -21,7 +21,7 @@ export class AccountController {
 
 
   @Get(':id')
-  async getOne(@Param('id') id): Promise<Account> {
+  async getOne(@Param('id') id:string): Promise<Account> {
 
     try {
       return await this.accountService.getById(id)
