@@ -15,7 +15,7 @@ export class AccountService {
 
   async getAll(filter: string): Promise<Account[]> {
     if (!filter) return await this.accountModel.find().exec()
-    console.log(filter);
+    
     
     if (filter) return await this.accountModel.find({company: filter})
   }
