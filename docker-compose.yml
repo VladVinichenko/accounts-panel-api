@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+#  app:
+#   container_name: app
+#   image: accounts-panel
+#   restart: always
+#   build: .
+#   ports:
+#   - "3000:3000"
+#   links:
+#   - mongo
+ api:
+  container_name: api
+  image: accounts-panel-api
+  restart: always
+  build:
+   dockerfile: Dockerfile
+   context: ./
+  command: sh -c "npm install && npm run start:dev"
+  working_dir: /client/app
+  volumes:
+      - ./:/client/app
+      - /client/app/node_modules
+  ports:
+  - "8080:8080"
+  links:
+  - mongo
+  environment: 
+    NODE_ENV: development
+    PORT: 8080
+ mongo:
+  container_name: mongo
+  image: mongo
+  restart: always
+  volumes:
+  - data:/data/db
+  ports:
+  - '27017:27017'
+
+volumes:
+ data:
